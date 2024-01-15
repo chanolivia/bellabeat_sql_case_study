@@ -56,4 +56,104 @@ For the first round of data cleansing, Excel will be used.
 &nbsp;&nbsp;&nbsp;&nbsp;- For the file sleepDay_Merged, change SleepDay to short date format in order to get rid of null value time “0:00:00”  
 &nbsp;&nbsp;&nbsp;&nbsp;- Change the format of the ActivityHour column in the files hourlyCalories_merged, hourlySteps_merged, and hourlyIntensities_merged so that it’s easier to auto detect schema in Google Big Query later.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Separate Activity Hour into two columns, one with short format date and one with time.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <img src="https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/09d1892f-2768-48f6-ad18-94f0e66cec36" height="250" width= "325">  
+
+For the second round of data cleansing, SQL will be used.  
+
+<ins>Checking the number of distinct IDs in each data set</ins>  
+
+```sql
+-- dailyActivity_Merged
+SELECT COUNT(DISTINCT ID)
+FROM `bellabeat-case-study-410302.activity.activity_daily`
+```
+```sql
+-- hourlyCalories_Merged
+SELECT COUNT(DISTINCT ID)
+FROM `bellabeat-case-study-410302.calories.calories_hourly`
+```
+```sql
+-- hourlyIntensities_Merged
+SELECT COUNT(DISTINCT ID)
+FROM `bellabeat-case-study-410302.intensities.intensities_hourly`
+```
+```sql
+-- hourlySteps_Merged
+SELECT COUNT(DISTINCT ID)
+FROM `bellabeat-case-study-410302.steps.steps_hourly`
+```
+```sql
+-- sleepDay_Merged
+SELECT COUNT(DISTINCT ID)
+FROM `bellabeat-case-study-410302.sleep.sleep_daily`
+```
+
+Results: Each data set has 33 unique IDs except for sleepDay_Merged, which has 24 IDs.  
+
+<ins> Checking for duplicate entries across all data sets </ins>  
+```sql
+-- dailyActivity_Merged
+SELECT Id, ActivityDate, COUNT(*) AS Occurrences
+FROM `bellabeat-case-study-410302.activity.activity_daily`
+GROUP BY Id, ActivityDate
+HAVING COUNT(*) > 1;
+```
+```sql
+-- hourlyCalories_Merged
+SELECT Id, ActivityHour_Date, ActivityHour_Time, COUNT(*) AS Occurrences
+FROM `bellabeat-case-study-410302.calories.calories_hourly`
+GROUP BY Id, ActivityHour_Date, ActivityHour_Time
+HAVING COUNT(*) > 1;
+```
+```sql
+-- hourlyIntensities_Merged
+SELECT Id, ActivityHour_Date, ActivityHour_Time, COUNT(*) AS Occurrences
+FROM `bellabeat-case-study-410302.intensities.intensities_hourly`
+GROUP BY Id, ActivityHour_Date, ActivityHour_Time
+HAVING COUNT(*) > 1;
+```
+```sql
+-- hourlySteps_Merged
+SELECT Id, ActivityHour_Date, ActivityHour_Time, COUNT(*) AS Occurrences
+FROM `bellabeat-case-study-410302.steps.steps_hourly`
+GROUP BY Id, ActivityHour_Date, ActivityHour_Time
+HAVING COUNT(*) > 1;
+```
+```sql
+-- sleepDay_Merged
+SELECT Id, SleepDay, COUNT(*) AS Occurrences
+ FROM `bellabeat-case-study-410302.sleep.sleep_daily`
+ GROUP BY Id, SleepDay
+ HAVING COUNT(*) >1;
+```
+Results: No duplicates found except in sleepDay_Merged data (see below)  
+![Screenshot 2024-01-15 170331](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/93995544-cf2e-478d-8111-f6dc839f51c5)  
+
+<ins> Merge hourly data sets into one table for more efficient queries </ins>  
+```sql
+-- create new table merged.Hourly 
+CREATE TABLE merged.Hourly (
+  Id numeric (10,0),
+  dates string (50),
+  times int,
+  calories numeric (5,0),
+  total_intensity numeric (5,0),
+  avg_intensity float64,
+  total_steps numeric (5,0)
+);
+
+-- join individual hourly data tables together and map columns to the right columns in merged.Hourly
+INSERT INTO merged.Hourly(
+  Id, dates, times, calories, total_intensity, avg_intensity, total_steps)
+  (SELECT cal.Id, cal.dates, cal.times, cal.calories, int.total_intensity, int.avg_intensity, step.total_steps
+  FROM calories_hourly AS cal
+  INNER JOIN intensities_hourly AS int
+  ON cal.Id = int.Id AND cal.dates = int.dates AND cal.times = int.times
+  INNER JOIN steps_hourly AS step
+  ON cal.Id = step.Id AND cal.dates = step.dates AND cal.times = step.times);
+```
+*The hourly data sets can also be merged via Excel. First, create a primary key by using the CONCAT function between the Id and ActivityHour columns. Next, use the primary key in a VLOOKUP function to pull unique columns from each file into one merged table.  
+<img
+
+
+
