@@ -49,7 +49,7 @@ For this analysis, the following files will be analyzed:
 &nbsp;&nbsp;&nbsp;&nbsp;- hourlySteps_Merged  
 &nbsp;&nbsp;&nbsp;&nbsp;- hourlyIntensities_Merged  
 
-## III. Process  
+## III) Process  
 <em> Process data by cleaning and checking the information. </em>
 
 For the first round of data cleansing, Excel will be used.  
@@ -153,7 +153,25 @@ INSERT INTO merged.Hourly(
   ON cal.Id = step.Id AND cal.dates = step.dates AND cal.times = step.times);
 ```
 *The hourly data sets can also be merged via Excel. First, create a primary key by using the CONCAT function between the Id and ActivityHour columns. Next, use the primary key in a VLOOKUP function to pull unique columns from each file into one merged table.  
-<img
+![Screenshot 2024-01-07 024921](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/2d1e140f-a606-4581-be87-190b99bcc7c3)  
+
+<ins> Merge daily data sets into one table for more efficient queries </ins> 
+```sql
+SELECT *
+FROM `bellabeat-case-study-410302.activity.activity_daily` AS activity_daily
+LEFT JOIN `bellabeat-case-study-410302.sleep.sleep_daily` AS sleep_daily
+ON activity_daily.ActivityDate = sleep_daily.SleepDay AND activity_daily.Id = sleep_daily.Id
+```
+
+*This can also be done via Excel using a concatenated primary key and VLOOKUP.  
+![Screenshot 2024-01-13 215120](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/7e39084f-ccd9-4baa-b1dd-0110be833f09)  
+*Notice there are #N/A results from the VLOOKUP because the sleep data set only has data from 24 ID’s and not 33.  
+
+## IV) Analyze  
+<em> Analyze data to find patterns, relationships, and trends. </em>  
+
+
+
 
 
 
