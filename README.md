@@ -129,6 +129,7 @@ SELECT Id, SleepDay, COUNT(*) AS Occurrences
 Results: No duplicates found except in sleepDay_Merged data (see below)  
 ![Screenshot 2024-01-15 170331](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/93995544-cf2e-478d-8111-f6dc839f51c5)  
 
+
 <ins> Merge hourly data sets into one table for more efficient queries </ins>  
 ```sql
 -- create new table merged.Hourly 
@@ -169,6 +170,109 @@ ON activity_daily.ActivityDate = sleep_daily.SleepDay AND activity_daily.Id = sl
 
 ## IV) Analyze  
 <em> Analyze data to find patterns, relationships, and trends. </em>  
+
+<ins> Average time spent for each activity level </ins>  
+```sql
+-- average time spent in minutes for each activity level
+SELECT ROUND(AVG(activity_daily.VeryActiveMinutes),2) AS Avg_Very_Active_Minutes,
+ROUND(AVG(activity_daily.FairlyActiveMinutes),2) AS Avg_Fairly_Active_Minutes,
+ROUND(AVG(activity_daily.LightlyActiveMinutes),2)AS Avg_Lightly_Active_Minutes,
+ROUND(AVG(activity_daily.SedentaryMinutes),2) AS Avg_Sedentary_Minutes
+FROM `bellabeat-case-study-410302.activity.activity_daily` AS activity_daily
+LEFT JOIN `bellabeat-case-study-410302.sleep.sleep_daily` AS sleep_daily
+ON activity_daily.ActivityDate = sleep_daily.SleepDay AND activity_daily.Id = sleep_daily.Id
+```
+We can do this in hours too:
+```sql
+-- average time spent in hours for each activity level
+SELECT ROUND(AVG(activity_daily.VeryActiveMinutes)/60, 2) AS Avg_Very_Active_Hours,
+ROUND(AVG(activity_daily.FairlyActiveMinutes)/60,2) AS Avg_Fairly_Active_Hours,
+ROUND(AVG(activity_daily.LightlyActiveMinutes)/60,2) AS Avg_Lightly_Active_Hours,
+ROUND(AVG(activity_daily.SedentaryMinutes)/60,2) AS Avg_Sedentary_Hours
+FROM `bellabeat-case-study-410302.activity.activity_daily` AS activity_daily
+LEFT JOIN `bellabeat-case-study-410302.sleep.sleep_daily` AS sleep_daily
+ON activity_daily.ActivityDate = sleep_daily.SleepDay AND activity_daily.Id = sleep_daily.Id
+```
+![Screenshot 2024-01-18 132936](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/d097acac-aecb-471b-ba5b-50dd4ce1285e)  
+
+*Participants spent the most time engaging in sedentary activity with an average of 991.21 minutes or 16.51 hours a day. Coming in second, they also spent an average of 192.81 minutes or 3.22 hours a day engaging in light activity. The least amount of time was spent engaging in very active or fairly active activities with just 21.16 and 13.56 minutes being spent on average in a day, respectively.  
+
+<ins> Average calories burned and average total steps taken </ins>  
+```sql
+-- average calories burned and average total steps taken
+SELECT ROUND(AVG(activity_daily.Calories), 2) AS Avg_Calories_Burned,
+ROUND(AVG(activity_daily.TotalSteps),2) AS Avg_Total_Steps
+FROM `bellabeat-case-study-410302.activity.activity_daily` AS activity_daily
+LEFT JOIN `bellabeat-case-study-410302.sleep.sleep_daily` AS sleep_daily
+ON activity_daily.ActivityDate = sleep_daily.SleepDay AND activity_daily.Id = sleep_daily.Id
+```
+![Screenshot 2024-01-18 133205](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/98ee35c8-31eb-452e-bf08-b6deb948cfd5)  
+
+*Participants burned an average of 2307.51 calories a day and took an average of 7652.19 steps a day.  
+
+<ins> Average active distance as % of total distance </ins>  
+```sql
+-- Add columns to the table
+ALTER TABLE activity.activity_daily
+ADD COLUMN VAD_Ratio DECIMAL (10,2),
+ADD COLUMN MAD_Ratio DECIMAL (10,2),
+ADD COLUMN LAD_Ratio DECIMAL (10,2),
+ADD COLUMN SAD_Ratio DECIMAL (10,2);
+
+
+-- Update the values in the new columns
+UPDATE activity.activity_daily
+SET
+  VAD_Ratio = activity_daily.VeryActiveDistance / activity_daily.TotalDistance,
+  MAD_Ratio = activity_daily.ModeratelyActiveDistance / activity_daily.TotalDistance,
+  LAD_Ratio = activity_daily.LightActiveDistance / activity_daily.TotalDistance,
+  SAD_Ratio = activity_daily.SedentaryActiveDistance / activity_daily.TotalDistance;
+
+
+-- Find the average active distance ratio
+SELECT ROUND(AVG(VAD_Ratio), 2) AS Avg_VAD_Ratio,
+ROUND(AVG(MAD_Ratio), 2) AS Avg_MAD_Ratio, 
+ROUND(AVG(LAD_Ratio), 2) AS Avg_LAD_Ratio, 
+ROUND(AVG(SAD_Ratio), 2) AS Avg_SAD_Ratio
+FROM `bellabeat-case-study-410302.activity.activity_daily`
+```
+![Screenshot 2024-01-18 133303](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/637ad525-912e-4abc-989e-8a6a83cee487)  
+
+*Out of the distance participants moved, the highest average ratio goes to light activity. Sedentary distance will be 0 because there is usually 0 movement when one is sedentary.  
+
+<ins> Avg. time sleeping and spent in bed </ins>  
+```sql
+SELECT ROUND(AVG(TotalMinutesAsleep)/60,2) AS Avg_Sleep_Hours,
+ROUND(AVG(TotalTimeInBed)/60,2) AS Avg_Hours_in_Bed,
+ROUND((ROUND(AVG(TotalTimeInBed)/60,2) - ROUND(AVG(TotalMinutesAsleep)/60,2)),2) AS Avg_Hours_in_Bed_Not_Sleeping
+ FROM `bellabeat-case-study-410302.sleep.sleep_daily`
+```
+![Screenshot 2024-01-18 133438](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/30d437db-e176-4539-8b63-d89b937be0cf)  
+
+*On avg, participants were sleeping for around 7 hours a day, spent a total of 7.64 hours in bed a day, which means around 40 minutes of staying in bed but not sleeping.  
+
+<ins> Correlation Analysis </ins>  
+Using Excel’s data analysis toolpak, let’s perform a correlation analysis between some variables.  
+
+Total Steps against Calories:  
+![Screenshot 2024-01-18 133531](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/8259af2c-dafc-451f-bba9-25346731fb79)  
+
+Active Distance against Calories:  
+![Screenshot 2024-01-18 133554](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/9f2451ef-80a0-4098-aa32-39b219bc7496)  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
 
 
 
