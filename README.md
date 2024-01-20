@@ -271,10 +271,9 @@ Total Steps, Total Intensity, Avg Intensity against Calories (using hourly_merge
 
 *Under the principle that an r value of 0.7 or greater indicates correlation, we can only say that total steps, total intensity, and avg intensity are correlated to 
 calories burned. Let’s look at some visualizations for this:  
-
-![Screenshot 2024-01-19 193024](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/980aa1fa-1c9a-4267-8f81-aa729b6c380f)  
-![Screenshot 2024-01-19 193108](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/4368d60e-cb9f-4d12-b783-3348ae0d8a18)
-![Screenshot 2024-01-19 193153](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/f25ddea4-869d-4fb1-b096-6b0923b94f47)  
+![Sheet 2](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/a093f294-ee20-4f68-b04f-85e58e0bd1c9)  
+![Sheet 2 (1)](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/cc4e4b09-59da-4edf-afb9-b8741b7e969a)  
+![Sheet 2 (2)](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/0b051a7a-44fd-4748-8ca3-8569a1cd81d1)  
 
 <ins> Answering Key Questions </ins>  
 
@@ -290,8 +289,8 @@ Results:
 ![Screenshot 2024-01-19 193336](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/9cd509e7-7632-455c-9e4a-49a42376ff16)  
 *From this, we can see that participants took the most steps at 6PM, 7PM, 12PM. The least steps were taken at 2AM, 4AM, and 3AM.  
 
-A visualization:  
-![Screenshot 2024-01-19 193420](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/d418953b-7151-419e-8d8e-3ad2f7e981c7)  
+A visualization:   
+![Sheet 1 (5)](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/4acf0ffe-7e15-434a-b1cf-6661a3520a0f)
 
 *What day of the week are people most/least active?*  
 ```sql
@@ -308,7 +307,7 @@ Results:
 *We can see that participants were most active on Mondays and Tuesdays but least active on Sundays and Thursdays according to this data.
 
 A visualization:  
-![Screenshot 2024-01-19 193638](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/34e0dfa3-dc5e-4d92-8b3c-fbc2567aa52a)  
+![Screenshot 2024-01-19 193638](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/925fd2df-7480-4394-b007-bdd72f7caea1)  
 
 *What day of the week do people sleep the most?*  
 ```sql
@@ -322,8 +321,8 @@ Results:
 ![Screenshot 2024-01-19 193847](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/c52b53fe-e76d-4056-ade2-ea001b1d41be)  
 *People sleep the most on average on Sundays.  
 
-A visualization:  
-![Screenshot 2024-01-19 193950](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/3b0934e8-2342-416e-ba1e-3194a70aa56c)  
+A visualization:    
+![Sheet 1 (8)](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/42f880f7-60bc-47e8-9ce8-b4356dc1380b)
 
 *What time of day do people burn the most calories?*  
 ```sql
@@ -337,8 +336,8 @@ Results:
 ![Screenshot 2024-01-19 194040](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/0049863a-fb88-4fb8-a7e6-ef069661e3ba)  
 *People are burning the most calories at 5:00-7:00 PM and burning the least calories from 2:00-4:00 AM  
 
-A visualization:  
-![Screenshot 2024-01-19 194135](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/c32664c9-d0e7-4469-b6fc-543d4838c103)  
+A visualization:    
+![Sheet 1 (4)](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/de5e99d0-0a69-49e9-ae6d-4da7bf644963)
 
 ## V) Share :loudspeaker:
 <em>Share data with your audience.</em>  
