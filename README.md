@@ -338,7 +338,7 @@ Results:
 A visualization:    
 ![Sheet 1 (4)](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/de5e99d0-0a69-49e9-ae6d-4da7bf644963)   
 
-## V) Act  :running:
+## V) and VI) Share and Act  :running:
 <em>Act on the data and use the analysis results.</em>  
 
 <ins>Reiterating our objectives:</ins>  
