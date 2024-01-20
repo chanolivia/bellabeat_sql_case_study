@@ -1,14 +1,13 @@
 # Bellabeat Case Study 
 Author: Olivia Chan  
 Date: 1/15/2024
-## Table of Contents
-This case study follows the 6-step data analysis process:    
+## Table of Contents      
     &nbsp;&nbsp;&nbsp;&nbsp;[I) Ask](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#i-ask-question)    
     &nbsp;&nbsp;&nbsp;&nbsp;[II) Prepare](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#ii-prepare-file_folder)   
     &nbsp;&nbsp;&nbsp;&nbsp;[III) Process](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#iii-process-clipboard)  
     &nbsp;&nbsp;&nbsp;&nbsp;[IV) Analyze](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#iv-analyze--mag_right)  
-    &nbsp;&nbsp;&nbsp;&nbsp;[V) Share](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#v-share-loudspeaker)  
-    &nbsp;&nbsp;&nbsp;&nbsp;[VI) Act](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#vi-act--running)   
+    &nbsp;&nbsp;&nbsp;&nbsp;[V) Act](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#v-act--running)  
+    
 ## Introduction 
 &nbsp;&nbsp;&nbsp;&nbsp;Bellabeat is a women’s wellness company that designs wearable technology and digital products that empower women to take control of their health. Their most well known product is known as ‘Ivy’, a wrist tracker that is capable of recording biometrics such as heart rate, sleep patterns, and menstrual cycles. In this case study, the CCO of Bellabeat, Urška Sršen, has prompted an analysis of smart device fitness data in hopes of revealing key insights that may help influence Bellabeat’s marketing strategy.
 ## I. Ask :question:
@@ -337,12 +336,9 @@ Results:
 *People are burning the most calories at 5:00-7:00 PM and burning the least calories from 2:00-4:00 AM  
 
 A visualization:    
-![Sheet 1 (4)](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/de5e99d0-0a69-49e9-ae6d-4da7bf644963)
+![Sheet 1 (4)](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/de5e99d0-0a69-49e9-ae6d-4da7bf644963)   
 
-## V) Share :loudspeaker:
-<em>Share data with your audience.</em>  
-
-## VI) Act  :running:
+## V) Act  :running:
 <em>Act on the data and use the analysis results.</em>  
 
 <ins>Reiterating our objectives:</ins>  
