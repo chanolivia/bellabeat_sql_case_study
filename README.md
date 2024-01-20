@@ -373,7 +373,7 @@ A visualization:
     &nbsp;&nbsp;&nbsp;&nbsp;- Consider partnering with other companies in the healthtech and fitness space to expand consumer base and functionality.  
     &nbsp;&nbsp;&nbsp;&nbsp;- Collect data from new campaigns or strategies being implemented and check back in with a follow-up analysis.  
 
-Thank you! :grin:  
+Thank you! :grin: [Take me back to the top!](https://github.com/chanolivia/bellabeat_sql_case_study?tab=readme-ov-file#bellabeat-case-study)   
 
 
 
