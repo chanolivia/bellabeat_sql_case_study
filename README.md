@@ -1,4 +1,4 @@
-# Bellabeat Case Study
+# Bellabeat Case Study 
 Author: Olivia Chan  
 Date: 1/15/2024
 ## Table of Contents
@@ -11,7 +11,7 @@ This case study follows the 6-step data analysis process:
     &nbsp;&nbsp;&nbsp;&nbsp;VI) Act  
 ## Introduction 
 &nbsp;&nbsp;&nbsp;&nbsp;Bellabeat is a women’s wellness company that designs wearable technology and digital products that empower women to take control of their health. Their most well known product is known as ‘Ivy’, a wrist tracker that is capable of recording biometrics such as heart rate, sleep patterns, and menstrual cycles. In this case study, the CCO of Bellabeat, Urška Sršen, has prompted an analysis of smart device fitness data in hopes of revealing key insights that may help influence Bellabeat’s marketing strategy.
-## I) Ask
+## I. Ask :question:
 <em> Ask questions and define the problem. </em>  
 
 
@@ -24,7 +24,7 @@ Focus Questions:
 &nbsp;&nbsp;&nbsp;&nbsp;- How could these trends apply to Bellabeat customers?  
 &nbsp;&nbsp;&nbsp;&nbsp;- How could these trends help influence Bellabeat marketing strategy?  
 
-## II) Prepare
+## II) Prepare :file_folder:
 <em> Prepare data by collecting and storing the information.</em>  
 
 For this case study, the data set being analyzed is the [FitBit Fitness Tracker Data - Mobius](https://www.kaggle.com/datasets/arashnic/fitbit)  
@@ -49,7 +49,7 @@ For this analysis, the following files will be analyzed:
 &nbsp;&nbsp;&nbsp;&nbsp;- hourlySteps_Merged  
 &nbsp;&nbsp;&nbsp;&nbsp;- hourlyIntensities_Merged  
 
-## III) Process  
+## III) Process :clipboard: 
 <em> Process data by cleaning and checking the information. </em>
 
 For the first round of data cleansing, Excel will be used.  
@@ -168,7 +168,7 @@ ON activity_daily.ActivityDate = sleep_daily.SleepDay AND activity_daily.Id = sl
 ![Screenshot 2024-01-13 215120](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/7e39084f-ccd9-4baa-b1dd-0110be833f09)  
 *Notice there are #N/A results from the VLOOKUP because the sleep data set only has data from 24 ID’s and not 33.  
 
-## IV) Analyze  
+## IV) Analyze  :mag_right:
 <em> Analyze data to find patterns, relationships, and trends. </em>  
 
 <ins> Average time spent for each activity level </ins>  
@@ -259,6 +259,139 @@ Total Steps against Calories:
 
 Active Distance against Calories:  
 ![Screenshot 2024-01-18 133554](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/9f2451ef-80a0-4098-aa32-39b219bc7496)  
+
+Active Min against Calories:  
+![Screenshot 2024-01-19 191646](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/e523786a-e261-49b5-9138-765d06d4edba)
+
+Total Min Asleep and Total Time in Bed against Calories:  
+![Screenshot 2024-01-19 191814](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/df9e68ef-5931-4f3f-b801-c2ffbd8b9c3d)
+
+Total Steps, Total Intensity, Avg Intensity against Calories (using hourly_merged table):  
+![Screenshot 2024-01-19 191853](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/63424d8e-f20d-4b80-ba15-5a91cb2beb61)  
+
+*Under the principle that an r value of 0.7 or greater indicates correlation, we can only say that total steps, total intensity, and avg intensity are correlated to 
+calories burned. Let’s look at some visualizations for this:  
+
+![Screenshot 2024-01-19 193024](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/980aa1fa-1c9a-4267-8f81-aa729b6c380f)  
+![Screenshot 2024-01-19 193108](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/4368d60e-cb9f-4d12-b783-3348ae0d8a18)
+![Screenshot 2024-01-19 193153](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/f25ddea4-869d-4fb1-b096-6b0923b94f47)  
+
+<ins> Answering Key Questions </ins>  
+
+*What time of day are people taking the most steps?*  
+To figure this out, let’s use SQL to determine the sum of steps taken in each hour.  
+```sql
+SELECT ActivityHour_2, SUM(StepTotal) AS Total_Steps_Taken
+FROM `bellabeat-case-study-410302.steps.steps_hourly`
+GROUP BY ActivityHour_2
+ORDER BY Total_Steps_Taken DESC
+```
+Results:  
+![Screenshot 2024-01-19 193336](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/9cd509e7-7632-455c-9e4a-49a42376ff16)  
+*From this, we can see that participants took the most steps at 6PM, 7PM, 12PM. The least steps were taken at 2AM, 4AM, and 3AM.  
+
+A visualization:  
+![Screenshot 2024-01-19 193420](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/d418953b-7151-419e-8d8e-3ad2f7e981c7)  
+
+*What day of the week are people most/least active?*  
+```sql
+SELECT FORMAT_DATE('%A', ActivityDate) AS day_of_week,
+ROUND(AVG(VeryActiveMinutes) + AVG(FairlyActiveMinutes) + AVG(LightlyActiveMinutes),2)AS Active_Minutes,
+FROM `bellabeat-case-study-410302.activity.activity_daily`
+GROUP BY day_of_week
+ORDER BY Active_Minutes DESC
+```
+*did not include sedentary because there is no moving being done  
+
+Results:  
+![Screenshot 2024-01-19 193544](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/714be5ac-9c00-41cd-92cc-5d8a60aee130)  
+*We can see that participants were most active on Mondays and Tuesdays but least active on Sundays and Thursdays according to this data.
+
+A visualization:  
+![Screenshot 2024-01-19 193638](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/34e0dfa3-dc5e-4d92-8b3c-fbc2567aa52a)  
+
+*What day of the week do people sleep the most?*  
+```sql
+SELECT FORMAT_DATE('%A', SleepDay) AS day_of_week,
+ROUND(AVG(TotalMinutesAsleep)/60,2) AS Avg_Sleep
+ FROM `bellabeat-case-study-410302.sleep.sleep_daily`
+ GROUP BY day_of_week
+ ORDER BY Avg_Sleep DESC
+```
+Results:  
+![Screenshot 2024-01-19 193847](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/c52b53fe-e76d-4056-ade2-ea001b1d41be)  
+*People sleep the most on average on Sundays.  
+
+A visualization:  
+![Screenshot 2024-01-19 193950](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/3b0934e8-2342-416e-ba1e-3194a70aa56c)  
+
+*What time of day do people burn the most calories?*  
+```sql
+SELECT ActivityHour_Time,
+SUM(Calories) AS Calories_Burned
+FROM `bellabeat-case-study-410302.calories.calories_hourly`
+GROUP BY ActivityHour_Time
+ORDER BY Calories_Burned DESC
+```
+Results:  
+![Screenshot 2024-01-19 194040](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/0049863a-fb88-4fb8-a7e6-ef069661e3ba)  
+*People are burning the most calories at 5:00-7:00 PM and burning the least calories from 2:00-4:00 AM  
+
+A visualization:  
+![Screenshot 2024-01-19 194135](https://github.com/chanolivia/bellabeat_sql_case_study/assets/143843732/c32664c9-d0e7-4469-b6fc-543d4838c103)  
+
+## V) Share :loudspeaker:
+<em>Share data with your audience.</em>  
+
+## VI) Act  :running:
+<em>Act on the data and use the analysis results.</em>  
+
+<ins>Reiterating our objectives:</ins>  
+    &nbsp;&nbsp;&nbsp;&nbsp;- What are some trends in smart device usage?  
+    &nbsp;&nbsp;&nbsp;&nbsp;- How could these trends apply to Bellabeat customers?  
+    &nbsp;&nbsp;&nbsp;&nbsp;- How could these trends help influence Bellabeat marketing strategy?  
+
+<ins>Conclusions drawn from analysis:</ins>  
+    &nbsp;&nbsp;&nbsp;&nbsp;- Participants spent the most time on average at a sedentary activity level, at an average of **16.51** hours a day. Participants were lightly active at an average of **3.22** hours a day, very active for **0.35** hours a day, and fairly active for **0.23** hours a day.  
+    &nbsp;&nbsp;&nbsp;&nbsp;- On average, participants burned **2307.51** calories a day and took a total of **7652.19** steps a day.  
+    &nbsp;&nbsp;&nbsp;&nbsp;- Participants slept an average of **6.99** hours a day and **7.64** hours total time in bed. This means on average, users spent **0.65** hours in bed not sleeping.  
+    &nbsp;&nbsp;&nbsp;&nbsp;- There is a **positive correlation** between calories burned and total steps taken as well total and average intensities of activity level.  
+    &nbsp;&nbsp;&nbsp;&nbsp;- Participants took the most steps at **6PM**, **7PM**, **12PM**. The least steps were taken at **2AM**, **4AM**, and **3AM**.  
+    &nbsp;&nbsp;&nbsp;&nbsp;- People are burning the most calories at **5:00-7:00 PM** and burning the least calories from **2:00-4:00 AM**.  
+    &nbsp;&nbsp;&nbsp;&nbsp;- People slept the most hours on average on **Sundays** (7.55 hours) and the least on **Thursdays** (6.71 hours).  
+    &nbsp;&nbsp;&nbsp;&nbsp;- People are most active on average on **Saturdays** and **Fridays**. They are least active on **Thursdays** and **Sundays**.  
+
+<ins>Recommendations for Bellabeat’s marketing strategy:</ins>  
+    &nbsp;&nbsp;&nbsp;&nbsp;- For this case study, the objective is to focus on one Bellabeat product to apply the analysis towards. The Bellabeat product this analysis will focus on is ‘Ivy’, Bellabeat’s signature health tracker. ‘Ivy’ is engineered for women with the capacity to correlate menstrual cycle data, lifestyle habits, and biometric readings. It is similar to the FitBit as a wearable device.  
+    &nbsp;&nbsp;&nbsp;&nbsp;- ‘Ivy’ is already capable of monitoring users’ heart rate, activity, and sleep patterns. The insights gathered from this case study can be taken into consideration by Bellabeat to create more targeted and thoughtful marketing strategies.  
+    &nbsp;&nbsp;&nbsp;&nbsp;- Recommendations:  
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Encourage increased physical activity on days that users are least active on average (Sundays and Thursdays). Recommendations for specific exercise routines and providing easy access to exercise resources may increase action taken by users.  
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Promote the positive correlation between increased total steps, intensity, and number of calories burned.  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Create a point-based system where users can accumulate points based on exercise intensity or number of steps taken. This system can also offer bonus points for exercising during times where exercise levels normally dip.  
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Provide users with a visually appealing, digestible, and shareable summary of their health data once a month (like Spotify ‘Wrapped’). A monthly report will help users better visualize and understand their progress, which in turn may drive motivation and provide guidance towards developing healthier habits. Allowing for a simple summary of their report to be shared can encourage healthy competition among their social circles and can also allow users to feel more accountable or proud of their progress.  
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Encourage sleeping for longer or sleeping earlier on days where average sleep time dips.  
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Prompt users to spend less time staying in bed after they’ve woken up.  
+        
+<ins>Next Steps:</ins>  
+    &nbsp;&nbsp;&nbsp;&nbsp;- Conduct further analysis with different data sets. Specifically, look for recent data that can provide insights into women’s health and lifestyle habits since Bellabeat products cater to women.  
+    &nbsp;&nbsp;&nbsp;&nbsp;- Apply the insights gathered from this analysis into product design and innovation.  
+    &nbsp;&nbsp;&nbsp;&nbsp;- Consider partnering with other companies in the healthtech and fitness space to expand consumer base and functionality.  
+    &nbsp;&nbsp;&nbsp;&nbsp;- Collect data from new campaigns or strategies being implemented and check back in with a follow-up analysis.  
+
+Thank you! :grin:  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
