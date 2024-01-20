@@ -1,16 +1,16 @@
 # Bellabeat Case Study 
 Author: Olivia Chan  
-Date: 1/15/2024
-## Table of Contents      
-    &nbsp;&nbsp;&nbsp;&nbsp;[I) Ask](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#i-ask-question)    
-    &nbsp;&nbsp;&nbsp;&nbsp;[II) Prepare](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#ii-prepare-file_folder)   
-    &nbsp;&nbsp;&nbsp;&nbsp;[III) Process](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#iii-process-clipboard)  
-    &nbsp;&nbsp;&nbsp;&nbsp;[IV) Analyze](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#iv-analyze--mag_right)  
-    &nbsp;&nbsp;&nbsp;&nbsp;[V) Act](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#v-act--running)  
-    
+Date: 1/19/2024
+## Table of Contents  
+&nbsp;&nbsp;&nbsp;&nbsp;[I. Ask](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#i-ask-question)  
+&nbsp;&nbsp;&nbsp;&nbsp;[II. Prepare](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#ii-prepare-file_folder)  
+&nbsp;&nbsp;&nbsp;&nbsp;[III. Process](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#iii-process-clipboard)  
+&nbsp;&nbsp;&nbsp;&nbsp;[IV. Analyze](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#iv-analyze--mag_right)  
+&nbsp;&nbsp;&nbsp;&nbsp;[V. and VI. Share and Act](https://github.com/chanolivia/bellabeat_sql_case_study/blob/main/README.md#v-and-vi-share-and-act--running)  
+        
 ## Introduction 
 &nbsp;&nbsp;&nbsp;&nbsp;Bellabeat is a women’s wellness company that designs wearable technology and digital products that empower women to take control of their health. Their most well known product is known as ‘Ivy’, a wrist tracker that is capable of recording biometrics such as heart rate, sleep patterns, and menstrual cycles. In this case study, the CCO of Bellabeat, Urška Sršen, has prompted an analysis of smart device fitness data in hopes of revealing key insights that may help influence Bellabeat’s marketing strategy.
-## I. Ask :question:
+## I) Ask :question:
 <em> Ask questions and define the problem. </em>  
 
 
